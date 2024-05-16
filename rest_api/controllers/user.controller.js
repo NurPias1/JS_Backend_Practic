@@ -12,11 +12,27 @@ const creatUser = (req, res) => {
     email: req.body.email,
   };
   users.push(newuser);
-  res.status(200).json({ users });
+  res.status(201).json({ users });
 };
 //update user
 const updateUser = (req, res) => {
-  const id = req.params.id;
-  res.status(200).json({ massage: id });
+  const userId = req.params.id;
+  const { username, email } = req.body;
+  users
+    .filter((user) => user.id === userId)
+    .map((selecteduser) => {
+      selecteduser.username = username;
+      selecteduser.email = email;
+    });
+
+  res.status(200).json(users);
 };
-module.exports = { getAlluser, creatUser, updateUser };
+
+// delete
+const deleteUser = (req, res) => {
+  const userId = req.params.id;
+  users = users.filter((user) => user.id !== userId);
+  res.status(200).json(users);
+};
+
+module.exports = { getAlluser, creatUser, updateUser, deleteUser };

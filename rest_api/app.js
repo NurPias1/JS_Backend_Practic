@@ -3,6 +3,8 @@ const cors = require("cors");
 const bodyParser = require("body-parser");
 const usersRouter = require("./routes/user.routes");
 const app = express();
+// link css
+app.use(express.static("public"));
 
 app.use(cors());
 app.use(bodyParser.urlencoded({ extended: true }));
